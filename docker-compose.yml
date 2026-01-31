@@ -21,10 +21,14 @@ services:
     environment:
       APP_ENV: local
       DB_HOST: db
+#      DB_PORT: ${DB_PORT}
+#      DB_DATABASE: ${DB_DATABASE}
+#      DB_USERNAME: ${DB_USERNAME}
+#      DB_PASSWORD: ${DB_PASSWORD}
       DB_PORT: 5432
-      DB_DATABASE: ${DB_DATABASE}
-      DB_USERNAME: ${DB_USERNAME}
-      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: test_db
+      DB_USERNAME: test
+      DB_PASSWORD: password
     command: |
       sh -c "
         [ ! -f /var/www/.env ] && cp /var/www/.env.example /var/www/.env ;
