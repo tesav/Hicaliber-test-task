@@ -3,20 +3,11 @@
 namespace Tests\Unit\Services\Import\Strategies;
 
 use App\Services\Import\Strategies\CsvSimpleStrategy;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class CsvSimpleStrategyTest extends TestCase
 {
-    use RefreshDatabase;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        Storage::fake('local');
-    }
-
     public function test_import_adds_and_skips_invalid_rows()
     {
         $csvContent = <<<CSV
@@ -26,7 +17,8 @@ Invalid Property,abc,2,1,1,1
 Test Property 2,200000,4,3,2,2
 CSV;
 
-        // Сохраняем CSV через Storage (fake диск)
+        // Сохраняем CSV на fake диск
+        Storage::fake('local');
         $filePath = 'test.csv';
         Storage::disk('local')->put($filePath, $csvContent);
 

@@ -4,20 +4,11 @@ namespace Tests\Unit\Services\Import\Strategies;
 
 use App\Models\Property;
 use App\Services\Import\Strategies\CsvGeneratorStrategy;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class CsvGeneratorStrategyTest extends TestCase
 {
-    use RefreshDatabase;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        Storage::fake('local');
-    }
-
     public function test_import_adds_and_updates_properties()
     {
         Property::factory()->create(['name' => 'Existing Property', 'price' => 100000]);
@@ -30,7 +21,8 @@ New Property,200000,4,3,2,2
 Invalid Property,abc,2,1,1,1
 CSV;
 
-        // Сохраняем CSV через Storage (fake диск)
+        // Сохраняем CSV на fake диск
+        Storage::fake('local');
         $filePath = 'test.csv';
         Storage::disk('local')->put($filePath, $csvContent);
 
