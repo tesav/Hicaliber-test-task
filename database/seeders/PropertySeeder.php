@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Services\Import\PropertyImportService;
-use App\Services\Import\Strategies\CsvGeneratorStrategy;
-use App\Services\Import\Strategies\CsvSimpleStrategy;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Domains\Property\Repositories\PropertyRepositoryContract;
+use App\Domains\Property\Services\Import\PropertyImportService;
+use App\Domains\Property\Services\Import\Strategies\CsvGeneratorStrategy;
+use App\Domains\Property\Services\Import\Strategies\CsvSimpleStrategy;
+use App\Services\Import\FileCsvReader;
 use Illuminate\Database\Seeder;
 
 class PropertySeeder extends Seeder
@@ -15,15 +16,20 @@ class PropertySeeder extends Seeder
      */
     public function run(): void
     {
-        $filePath = 'imports/property-data.csv';
+        $reader = new FileCsvReader('imports/property-data.csv');
 
-        // $strategy = new CsvSimpleStrategy($filePath);
-        $strategy = new CsvGeneratorStrategy($filePath, 300);
+        // $strategy = new CsvSimpleStrategy($reader);
+        $strategy = new CsvGeneratorStrategy($reader);
+        $repository = app(PropertyRepositoryContract::class);
 
-        $result = (new PropertyImportService($strategy))->import();
+        $service = new PropertyImportService(
+            $strategy,
+            $repository,
+            300
+        );
+
+        $result = $service->import();
 
         $this->command->info($result);
     }
 }
-
-
