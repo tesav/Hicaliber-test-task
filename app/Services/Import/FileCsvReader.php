@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 class FileCsvReader implements CsvReader
 {
     protected string $filePath;
+
     protected string $disk;
 
     public function __construct(string $filePath, string $disk = 'local')
@@ -32,8 +33,8 @@ class FileCsvReader implements CsvReader
     {
         $storage = Storage::disk($this->disk);
 
-        if (!$storage->exists($this->filePath)) {
-            throw new \RuntimeException("CSV file not found: " . $storage->path($this->filePath));
+        if (! $storage->exists($this->filePath)) {
+            throw new \RuntimeException('CSV file not found: ' . $storage->path($this->filePath));
         }
 
         return $storage->path($this->filePath);

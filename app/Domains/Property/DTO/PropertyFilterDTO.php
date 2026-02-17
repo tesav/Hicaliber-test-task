@@ -15,5 +15,6 @@ final class PropertyFilterDTO
         public readonly ?string $sortBy = null,
         public readonly string $sortOrder = 'asc',
         public readonly int $perPage = 10,
-    ) {}
+    ) {
+    }
 }

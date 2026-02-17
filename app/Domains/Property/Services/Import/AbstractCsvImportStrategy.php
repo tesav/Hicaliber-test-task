@@ -10,8 +10,8 @@ abstract class AbstractCsvImportStrategy implements ImportStrategy
 {
     public function __construct(
         protected CsvReader $reader
-    )
-    {}
+    ) {
+    }
 
     protected function isValidRow(array $data): bool
     {
@@ -38,11 +38,11 @@ abstract class AbstractCsvImportStrategy implements ImportStrategy
         return new Property(
             id: null,
             name: $data['name'],
-            price: (int)$data['price'],
-            bedrooms: (int)$data['bedrooms'],
-            bathrooms: (int)$data['bathrooms'],
-            storeys: (int)$data['storeys'],
-            garages: (int)$data['garages']
+            price: (int) $data['price'],
+            bedrooms: (int) $data['bedrooms'],
+            bathrooms: (int) $data['bathrooms'],
+            storeys: (int) $data['storeys'],
+            garages: (int) $data['garages']
         );
     }
 }

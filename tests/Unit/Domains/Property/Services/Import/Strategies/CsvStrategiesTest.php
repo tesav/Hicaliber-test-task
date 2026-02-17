@@ -22,7 +22,8 @@ final class CsvStrategiesTest extends TestCase
     #[DataProvider('strategiesProvider')]
     public function test_entities_filters_invalid_rows_and_maps_to_properties(string $strategyClass): void
     {
-        $reader = new class implements CsvReader {
+        $reader = new class implements CsvReader
+        {
             public function rows(): iterable
             {
                 yield [

@@ -5,7 +5,6 @@ namespace App\Domains\Property\Repositories;
 use App\Domains\Property\DTO\PropertyFilterDTO;
 use App\Domains\Property\Entities\Property as PropertyEntity;
 use App\Domains\Property\Models\Property as PropertyModel;
-use App\Domains\Property\Repositories\PropertyRepositoryContract;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 final class EloquentPropertyRepository implements PropertyRepositoryContract
@@ -14,13 +13,27 @@ final class EloquentPropertyRepository implements PropertyRepositoryContract
     {
         $query = PropertyModel::query();
 
-        if ($filter->name) $query->where('name', 'ILIKE', "%{$filter->name}%");
-        if ($filter->bedrooms !== null) $query->where('bedrooms', $filter->bedrooms);
-        if ($filter->bathrooms !== null) $query->where('bathrooms', $filter->bathrooms);
-        if ($filter->storeys !== null) $query->where('storeys', $filter->storeys);
-        if ($filter->garages !== null) $query->where('garages', $filter->garages);
-        if ($filter->priceMin !== null) $query->where('price', '>=', $filter->priceMin);
-        if ($filter->priceMax !== null) $query->where('price', '<=', $filter->priceMax);
+        if ($filter->name) {
+            $query->where('name', 'ILIKE', "%{$filter->name}%");
+        }
+        if ($filter->bedrooms !== null) {
+            $query->where('bedrooms', $filter->bedrooms);
+        }
+        if ($filter->bathrooms !== null) {
+            $query->where('bathrooms', $filter->bathrooms);
+        }
+        if ($filter->storeys !== null) {
+            $query->where('storeys', $filter->storeys);
+        }
+        if ($filter->garages !== null) {
+            $query->where('garages', $filter->garages);
+        }
+        if ($filter->priceMin !== null) {
+            $query->where('price', '>=', $filter->priceMin);
+        }
+        if ($filter->priceMax !== null) {
+            $query->where('price', '<=', $filter->priceMax);
+        }
 
         if ($filter->sortBy && in_array($filter->sortBy, PropertyModel::SORTABLE_FIELDS)) {
             $query->orderBy($filter->sortBy, $filter->sortOrder);
@@ -29,7 +42,7 @@ final class EloquentPropertyRepository implements PropertyRepositoryContract
         $paginator = $query->paginate($filter->perPage);
 
         // Transform Eloquent models to Domain Entities
-        $paginator->getCollection()->transform(fn(PropertyModel $model) => new PropertyEntity(
+        $paginator->getCollection()->transform(fn (PropertyModel $model) => new PropertyEntity(
             id: $model->id,
             name: $model->name,
             bedrooms: $model->bedrooms,
@@ -58,7 +71,7 @@ final class EloquentPropertyRepository implements PropertyRepositoryContract
 
     public function saveBulk(array $entities): void
     {
-        $rows = array_map(fn(PropertyEntity $p) => [
+        $rows = array_map(fn (PropertyEntity $p) => [
             'name' => $p->name,
             'price' => $p->price,
             'bedrooms' => $p->bedrooms,

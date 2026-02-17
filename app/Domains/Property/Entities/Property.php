@@ -12,6 +12,6 @@ class Property
         public readonly int $storeys,
         public readonly int $garages,
         public readonly float $price,
-    ) {}
-
+    ) {
+    }
 }

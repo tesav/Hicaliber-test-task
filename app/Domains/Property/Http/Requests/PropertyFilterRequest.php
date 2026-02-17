@@ -2,8 +2,8 @@
 
 namespace App\Domains\Property\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use App\Domains\Property\DTO\PropertyFilterDTO;
+use Illuminate\Foundation\Http\FormRequest;
 
 class PropertyFilterRequest extends FormRequest
 {
@@ -42,7 +42,7 @@ class PropertyFilterRequest extends FormRequest
             priceMax: $v['price_max'] ?? null,
             sortBy: $v['sort_by'] ?? null,
             sortOrder: $v['sort_order'] ?? 'asc',
-            perPage: min((int)($v['per_page'] ?? 10), 100),
+            perPage: min((int) ($v['per_page'] ?? 10), 100),
         );
     }
 }

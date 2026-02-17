@@ -14,12 +14,9 @@ interface PropertyRepositoryContract
     public function search(PropertyFilterDTO $filter): LengthAwarePaginator;
 
     /**
-     * @param \App\Domains\Property\Entities\Property[] $entities
+     * @param  \App\Domains\Property\Entities\Property[]  $entities
      */
     public function saveBulk(array $entities): void;
 
-    /**
-     * @param \App\Domains\Property\Entities\Property $entity
-     */
     public function save(Property $entity): void;
 }

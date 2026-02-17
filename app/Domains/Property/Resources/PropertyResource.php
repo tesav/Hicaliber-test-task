@@ -17,11 +17,11 @@ class PropertyResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'bedrooms' => (int)$this->bedrooms,
-            'bathrooms' => (int)$this->bathrooms,
-            'storeys' => (int)$this->storeys,
-            'garages' => (int)$this->garages,
-            'price' => (int)$this->price,
+            'bedrooms' => (int) $this->bedrooms,
+            'bathrooms' => (int) $this->bathrooms,
+            'storeys' => (int) $this->storeys,
+            'garages' => (int) $this->garages,
+            'price' => (int) $this->price,
         ];
     }
 }

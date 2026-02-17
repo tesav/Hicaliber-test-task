@@ -11,7 +11,8 @@ class PropertyImportService
         private readonly ImportStrategy $strategy,
         private readonly PropertyRepositoryContract $repository,
         private readonly int $batchSize = 100
-    ) {}
+    ) {
+    }
 
     public function import(): string
     {
